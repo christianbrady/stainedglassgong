@@ -1,0 +1,20 @@
+body
+{
+    background-color: rgb(175, 238, 238);
+}
+canvas
+{
+    pointer-events: none;       /* make the canvas transparent to the mouse - needed since canvas is position infront of image */
+    position: absolute;
+}
+
+img.rounded-corners {
+    border-radius: 10px;
+  }
+
+  p 
+  {
+      font-family: "Garamond", Times, serif;
+      font-style: oblique;
+      font-size: 50px;
+  }
