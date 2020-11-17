@@ -6,110 +6,11 @@
     <link rel="stylesheet" href="area.css">
     <title>Stained Glass Gong</title>
 
-    <script>
-    
-    // stores the device context of the canvas we use to draw the outlines
-    // initialized in myInit, used in myHover and myLeave
-    var hdc;
-    
-    // shorthand func
-    function byId(e){return document.getElementById(e);}
-    
-    function drawPoly(coOrdStr)
-    {
-        var mCoords = coOrdStr.split(',');
-        var i, n;
-        n = mCoords.length;
-    
-        hdc.beginPath();
-        hdc.moveTo(mCoords[0], mCoords[1]);
-        for (i=2; i<n; i+=2)
-        {
-            hdc.lineTo(mCoords[i], mCoords[i+1]);
-        }
-        hdc.lineTo(mCoords[0], mCoords[1]);
-        hdc.fill();
-    }
-    
-    function drawRect(coOrdStr)
-    {
-        var mCoords = coOrdStr.split(',');
-        var top, left, bot, right;
-        left = mCoords[0];
-        top = mCoords[1];
-        right = mCoords[2];
-        bot = mCoords[3];
-        hdc.fillRect(left,top,right-left,bot-top); 
-    }
-    
-    function myHover(element)
-    {
-        var hoveredElement = element;
-        var coordStr = element.getAttribute('coords');
-        var areaType = element.getAttribute('shape');
-    
-        switch (areaType)
-        {
-            case 'polygon':
-            case 'poly':
-                drawPoly(coordStr);
-                break;
-    
-            case 'rect':
-                drawRect(coordStr);
-        }
-    }
-    
-    function myLeave()
-    {
-        var canvas = byId('myCanvas');
-        hdc.clearRect(0, 0, canvas.width, canvas.height);
-    }
-    
-    function myInit()
-    {
-        // get the target image
-        var img = byId('gongmap');
-    
-        var x,y, w,h;
-    
-        // get it's position and width+height
-        x = img.offsetLeft;
-        y = img.offsetTop;
-        w = img.clientWidth;
-        h = img.clientHeight;
-    
-        // move the canvas, so it's contained by the same parent as the image
-        var imgParent = img.parentNode;
-        var can = byId('myCanvas');
-        imgParent.appendChild(can);
-    
-        // place the canvas in front of the image
-        can.style.zIndex = 1;
-    
-        // position it over the image
-        can.style.left = x+'px';
-        can.style.top = y+'px';
-    
-        // make same size as the image
-        can.setAttribute('width', w+'px');
-        can.setAttribute('height', h+'px');
-    
-        // get it's context
-        hdc = can.getContext('2d');
-    
-        // set the 'default' values for the colour/width of fill/stroke operations
-        hdc.fillStyle = "rgba(255, 255, 191, 0.5)";
-        // hdc.strokeStyle = 'red';
-        // hdc.lineWidth = 2;
-    }
-
-</script>
 
 
 
 </head>
-<body onload='myInit()'>
+<body onload='Init()'>
     <canvas id='myCanvas'></canvas>     <!-- gets re-positioned in myInit(); -->
     <center>
 <p>
@@ -134,26 +35,26 @@
       <!-- #$-:Please do not edit lines starting with "#$" -->
       <!-- #$VERSION:2.3 -->
       <!-- #$AUTHOR:Christian Brady -->
-      <area shape="poly" coords="30,20,66,19,66,53,29,54" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(1)"  nohref="nohref" />
-      <area shape="rect" coords="74,21,201,56" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(2)"  nohref="nohref" />
-      <area shape="rect" coords="210,23,289,54" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(3)"  nohref="nohref" />
-      <area shape="rect" coords="297,24,418,54" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(4)"  nohref="nohref" />
-      <area shape="rect" coords="426,22,459,54" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(5)"  nohref="nohref" />
-      <area shape="rect" coords="30,64,70,318" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(6)"  nohref="nohref" />
-      <area shape="rect" coords="427,66,458,313" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(7)"  nohref="nohref" />
-      <area shape="rect" coords="37,329,74,362" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(8)"  nohref="nohref" />
-      <area shape="rect" coords="82,328,204,356" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(9)"  nohref="nohref" />
-      <area shape="rect" coords="213,329,291,353" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="play(10)"  nohref="nohref" />
-      <area shape="rect" coords="300,326,416,351" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(1)"  nohref="nohref" />
-      <area shape="rect" coords="426,325,457,352" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(2)"  nohref="nohref" />
-      <area shape="poly" coords="74,66,78,129,122,126,245,85,246,65" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(3)"  nohref="nohref" />
-      <area shape="poly" coords="258,66,259,84,382,125,419,126,420,63" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(4)"  nohref="nohref" />
-      <area shape="poly" coords="140,130,250,93,362,130,253,170" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(5)"  nohref="nohref" />
-      <area shape="poly" coords="140,248,249,210,364,245,253,285" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(6)"  nohref="nohref" />
-      <area shape="poly" coords="259,179,259,203,384,241,417,238,420,139,382,134" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(7)"  nohref="nohref" />
-      <area shape="poly" coords="78,138,124,136,248,177,247,198,126,246,79,248" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(8)"  nohref="nohref" />
-      <area shape="poly" coords="80,255,123,254,247,293,250,311,82,318" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(9)"  nohref="nohref" />
-      <area shape="poly" coords="260,294,378,252,418,251,418,311,258,314" onmouseover='myHover(this);' onmouseout='myLeave();' onclick="playslow(10)"  nohref="nohref" />
+      <area shape="poly" coords="30,20,66,19,66,53,29,54" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(1)"  nohref="nohref" />
+      <area shape="rect" coords="74,21,201,56" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(2)"  nohref="nohref" />
+      <area shape="rect" coords="210,23,289,54" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(3)"  nohref="nohref" />
+      <area shape="rect" coords="297,24,418,54" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(4)"  nohref="nohref" />
+      <area shape="rect" coords="426,22,459,54" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(5)"  nohref="nohref" />
+      <area shape="rect" coords="30,64,70,318" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(6)"  nohref="nohref" />
+      <area shape="rect" coords="427,66,458,313" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(7)"  nohref="nohref" />
+      <area shape="rect" coords="37,329,74,362" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(8)"  nohref="nohref" />
+      <area shape="rect" coords="82,328,204,356" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(9)"  nohref="nohref" />
+      <area shape="rect" coords="213,329,291,353" onmouseover='Hover(this);' onmouseout='Leave();' onclick="play(10)"  nohref="nohref" />
+      <area shape="rect" coords="300,326,416,351" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(1)"  nohref="nohref" />
+      <area shape="rect" coords="426,325,457,352" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(2)"  nohref="nohref" />
+      <area shape="poly" coords="74,66,78,129,122,126,245,85,246,65" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(3)"  nohref="nohref" />
+      <area shape="poly" coords="258,66,259,84,382,125,419,126,420,63" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(4)"  nohref="nohref" />
+      <area shape="poly" coords="140,130,250,93,362,130,253,170" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(5)"  nohref="nohref" />
+      <area shape="poly" coords="140,248,249,210,364,245,253,285" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(6)"  nohref="nohref" />
+      <area shape="poly" coords="259,179,259,203,384,241,417,238,420,139,382,134" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(7)"  nohref="nohref" />
+      <area shape="poly" coords="78,138,124,136,248,177,247,198,126,246,79,248" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(8)"  nohref="nohref" />
+      <area shape="poly" coords="80,255,123,254,247,293,250,311,82,318" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(9)"  nohref="nohref" />
+      <area shape="poly" coords="260,294,378,252,418,251,418,311,258,314" onmouseover='Hover(this);' onmouseout='Leave();' onclick="playfast(10)"  nohref="nohref" />
       </map>
       
 
